@@ -37,7 +37,7 @@ function HeartRate({
       data-name="Heart Rate"
     >
       <Frame17 />
-      <div className="-translate-x-1/2 absolute h-[123.131px] left-[calc(50%+0.5px)] top-[114px] w-[312px]">
+      <div className="-translate-x-1/2 absolute h-[123.131px] left-[calc(50%+0.5px)] top-[135px] w-[312px]">
         <div className="absolute inset-[5.51%_-0.22%_3.11%_-0.29%]">
           <svg
             className="block size-full"
@@ -85,23 +85,23 @@ function HeartRate({
           a calm system.
         </p>
       </div>
-      {/* Graph labels: number + unit in line (80 bpm, 90 bpm, 60 bpm) */}
+      {/* Graph labels: number + unit in line (80 bpm, 90 bpm, 60 bpm) - offset +21px to match graph */}
       <div
-        className="-translate-y-1/2 absolute left-[40px] top-[129px] flex items-baseline gap-[4px] font-['Instrument_Sans',sans-serif] font-normal leading-normal"
+        className="-translate-y-1/2 absolute left-[40px] top-[150px] flex items-baseline gap-[4px] font-['Instrument_Sans',sans-serif] font-normal leading-normal"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         <span className="text-[#494949] text-[16px]">80</span>
         <span className="text-[#828282] text-[8px]">bpm</span>
       </div>
       <div
-        className="-translate-y-1/2 absolute left-[226px] top-[108px] flex items-baseline gap-[4px] font-['Instrument_Sans',sans-serif] font-normal leading-normal"
+        className="-translate-y-1/2 absolute left-[226px] top-[129px] flex items-baseline gap-[4px] font-['Instrument_Sans',sans-serif] font-normal leading-normal"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         <span className="text-[#494949] text-[16px]">90</span>
         <span className="text-[#828282] text-[8px]">bpm</span>
       </div>
       <div
-        className="-translate-y-1/2 absolute left-[129px] top-[248px] flex items-baseline gap-[4px] font-['Instrument_Sans',sans-serif] font-normal leading-normal"
+        className="-translate-y-1/2 absolute left-[129px] top-[269px] flex items-baseline gap-[4px] font-['Instrument_Sans',sans-serif] font-normal leading-normal"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         <span className="text-[#494949] text-[16px]">60</span>

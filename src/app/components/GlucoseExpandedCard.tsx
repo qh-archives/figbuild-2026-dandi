@@ -43,8 +43,8 @@ export function GlucoseExpandedCard({ onBack, isExpanding }: GlucoseExpandedCard
                 <div className="absolute bottom-[30.5px] left-[15px] w-[calc(100%-30px)] text-[14px] text-black font-['Instrument_Sans',sans-serif] font-normal leading-normal" style={{ fontVariationSettings: "'wdth' 100" }}>
                   <p className="leading-[normal]">Glucose stayed within a healthy range across the full 24 hours, a sign of consistent metabolic balance throughout your day.</p>
                 </div>
-                {/* Glucose graph - data.png (12px gap below value, 12px gap above bottom text) */}
-                <div className="absolute inset-x-0 top-[90px] flex h-[160px] items-center justify-center px-[20px]">
+                {/* Glucose graph - equal spacing above and below image */}
+                <div className="absolute inset-x-0 top-[105px] flex h-[160px] items-center justify-center px-[20px]">
                   <img src={dataImg} alt="Glucose levels over 24 hours" className="h-full w-full object-contain" />
                 </div>
               </motion.div>

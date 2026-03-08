@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import imgImage44 from "@/assets/ab0f0306cf6f6c53e75e9e3017be976fab4648a1.png"; // Body Temp flower
+import imgEllipse from "@/assets/ellipse.png";
 import { ExpandedViewNavBar } from "../../imports/IPhone1653";
 import { FallingFlowersGeneric } from "./FallingFlowersGeneric";
 import { MedicationIntakeSection } from "./MedicationIntakeSection";
@@ -34,15 +35,15 @@ export function BodyTempExpandedCard({
                 <motion.div
                   layoutId="card-body-temp"
                   onClick={onBack}
-                  className="bg-[#f1f6ea] h-[353px] relative rounded-[20px] shrink-0 w-full cursor-pointer overflow-hidden"
+                  className="bg-[#f1f6ea] h-[353px] relative rounded-[20px] shrink-0 w-full cursor-pointer overflow-hidden flex flex-col py-[23px] px-[23px] gap-[20px]"
                 >
                   <FallingFlowersGeneric
                     isExpanding={isExpanding}
                     flowerImage={imgImage44}
                   />
-                  {/* Body Temp Content: title, then value + unit well-spaced */}
+                  {/* 1. Title: Body Temp + value */}
                   <div
-                    className="absolute left-[15px] top-[15px] flex flex-col gap-[4px] font-['Instrument_Sans',sans-serif]"
+                    className="flex flex-col gap-[4px] font-['Instrument_Sans',sans-serif] shrink-0"
                     style={{ fontVariationSettings: "'wdth' 100" }}
                   >
                     <p className="leading-[normal] text-[#494949] text-[12px] whitespace-nowrap">
@@ -57,51 +58,31 @@ export function BodyTempExpandedCard({
                       </p>
                     </div>
                   </div>
+                  {/* 2. Ellipse image + NORMAL text overlay (full-bleed: touches card left/right edges) */}
+                  <div className="relative flex flex-col items-center shrink-0 -mx-[23px] w-[calc(100%+46px)]">
+                    <div className="relative h-[160px] w-full overflow-visible flex justify-center">
+                      <img
+                        src={imgEllipse}
+                        alt=""
+                        className="absolute inset-0 w-full h-full pointer-events-none object-contain"
+                        aria-hidden
+                      />
+                      <p
+                        className="absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2 text-center font-['Instrument_Sans',sans-serif] text-[#151515] text-[24px] font-normal leading-normal"
+                        style={{ fontVariationSettings: "'wdth' 100" }}
+                      >
+                        NORMAL
+                      </p>
+                    </div>
+                  </div>
+                  {/* 3. Bottom text */}
                   <div
-                    className="absolute left-[15px] top-[306.5px] w-[calc(100%-30px)] text-[14px] text-black font-['Instrument_Sans',sans-serif] font-normal leading-normal"
+                    className="text-[14px] text-black font-['Instrument_Sans',sans-serif] font-normal leading-normal shrink-0"
                     style={{ fontVariationSettings: "'wdth' 100" }}
                   >
                     <p className="leading-[normal]">
                       Your temperature is right in the sweet spot, which points
                       to a well-rested night.
-                    </p>
-                  </div>
-                  {/* Temperature gauge: arc’s top (curved edge) at vertical center */}
-                  <div className="absolute inset-x-0 top-1/4 w-full aspect-square">
-                    <svg
-                      className="block size-full"
-                      fill="none"
-                      viewBox="0 0 231 231"
-                      preserveAspectRatio="xMidYMid meet"
-                    >
-                      {/* Bottom semicircle arc (light grey) - visible from 9 to 3 o'clock, 14px thick */}
-                      <circle
-                        cx="115.5"
-                        cy="115.5"
-                        r="113"
-                        stroke="#CBCBCC"
-                        strokeWidth="14"
-                        strokeDasharray="355 355"
-                        strokeDashoffset="355"
-                      />
-                      {/* Dark green segment at top-center of arc (apex, 12 o'clock), 14px thick */}
-                      <circle
-                        cx="115.5"
-                        cy="115.5"
-                        r="113"
-                        stroke="#467603"
-                        strokeWidth="14"
-                        strokeDasharray="35 675"
-                        strokeDashoffset="160"
-                      />
-                    </svg>
-                  </div>
-                  <div className="absolute left-1/2 top-[193px] flex w-full -translate-x-1/2 justify-center">
-                    <p
-                      className="font-['Instrument_Sans',sans-serif] font-normal leading-normal text-[#494949] text-[14px] uppercase"
-                      style={{ fontVariationSettings: "'wdth' 100" }}
-                    >
-                      NORMAL
                     </p>
                   </div>
                 </motion.div>

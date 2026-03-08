@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import imgImage41 from "@/assets/6d0f4a62e2c512d0485b9409fa0a263a6a69cf53.png"; // Sleep flower
+import sleepImg from "@/assets/sleep.png";
 import { ExpandedViewNavBar } from "../../imports/IPhone1653";
 import { FallingFlowersGeneric } from "./FallingFlowersGeneric";
 import { MedicationIntakeSection } from "./MedicationIntakeSection";
@@ -40,9 +41,9 @@ export function SleepExpandedCard({
                     isExpanding={isExpanding}
                     flowerImage={imgImage41}
                   />
-                  {/* Sleep Quality Content: line 1 = badge + title, line 2 = value + unit */}
+                  {/* Sleep Quality Content: line 1 = badge + title, line 2 = value + unit (23px from top to match other cards) */}
                   <div
-                    className="absolute left-[15px] top-[15px] flex flex-col gap-[4px] font-['Instrument_Sans',sans-serif]"
+                    className="absolute left-[23px] top-[23px] flex flex-col gap-[4px] font-['Instrument_Sans',sans-serif]"
                     style={{ fontVariationSettings: "'wdth' 100" }}
                   >
                     <div className="flex items-center gap-[6px]">
@@ -60,7 +61,7 @@ export function SleepExpandedCard({
                     </div>
                   </div>
                   <div
-                    className="-translate-y-1/2 absolute flex flex-col font-['Instrument_Sans',sans-serif] font-normal justify-center leading-[0] left-[calc(50%-159.5px)] text-[14px] text-black top-[306.5px] w-[315px]"
+                    className="absolute bottom-[23px] left-[23px] w-[calc(100%-46px)] font-['Instrument_Sans',sans-serif] font-normal text-[14px] text-black leading-normal"
                     style={{ fontVariationSettings: "'wdth' 100" }}
                   >
                     <p className="leading-[normal]">
@@ -69,62 +70,13 @@ export function SleepExpandedCard({
                       needs.
                     </p>
                   </div>
-                  {/* Sleep Bar */}
-                  <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[35px] left-1/2 overflow-clip top-1/2 w-[317px]">
-                    <div className="absolute bg-[#9cf7ab] h-[35px] left-0 rounded-[3px] top-0 w-[65px]" />
-                    <div className="absolute bg-[#74e886] h-[35px] left-[76px] rounded-[3px] top-0 w-[67px]" />
-                    <div className="absolute bg-[#0ec92c] h-[35px] left-[154px] rounded-[3px] top-0 w-[90px]" />
-                    <div className="absolute bg-[#09861d] h-[35px] left-[255px] rounded-[3px] top-0 w-[62px]" />
-                  </div>
-                  {/* Subtitles under each green frame: row 1 = badge + title, row 2 = numbers/units; right-aligned to frame */}
-                  <div className="-translate-x-1/2 absolute left-1/2 top-[calc(50%+35px+10px)] w-[317px] flex flex-row">
-                    <div
-                      className="flex flex-col items-end gap-[4px] shrink-0 w-[65px]"
-                      style={{ fontFamily: "Instrument Sans, sans-serif" }}
-                    >
-                      <div className="flex flex-row items-center gap-[4px]">
-                        <div className="bg-[#9cf7ab] rounded-full size-[6px] shrink-0" />
-                        <span className="text-[#5e5e5e] text-[10px] leading-normal">
-                          Awake
-                        </span>
-                      </div>
-                      <span className="text-[#5e5e5e] text-[16px] leading-normal">
-                        39m
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-end gap-[4px] shrink-0 w-[67px] pl-[11px]">
-                      <div className="flex flex-row items-center gap-[4px]">
-                        <div className="bg-[#74e886] rounded-full size-[6px] shrink-0" />
-                        <span className="text-[#5e5e5e] text-[10px] leading-normal">
-                          REM
-                        </span>
-                      </div>
-                      <span className="text-[#5e5e5e] text-[16px] leading-normal">
-                        1h
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-end gap-[4px] shrink-0 w-[90px] pl-[11px]">
-                      <div className="flex flex-row items-center gap-[4px]">
-                        <div className="bg-[#0ec92c] rounded-full size-[6px] shrink-0" />
-                        <span className="text-[#5e5e5e] text-[10px] leading-normal">
-                          Core
-                        </span>
-                      </div>
-                      <span className="text-[#5e5e5e] text-[16px] leading-normal">
-                        1h 20m
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-end gap-[4px] shrink-0 w-[62px] pl-[11px]">
-                      <div className="flex flex-row items-center gap-[4px]">
-                        <div className="bg-[#09861d] rounded-full size-[6px] shrink-0" />
-                        <span className="text-[#5e5e5e] text-[10px] leading-normal">
-                          Deep
-                        </span>
-                      </div>
-                      <span className="text-[#5e5e5e] text-[16px] leading-normal">
-                        32m
-                      </span>
-                    </div>
+                  {/* Sleep chart image (105px from top, 160px tall - matches Glucose spacing) */}
+                  <div className="absolute inset-x-0 top-[105px] flex h-[160px] items-center justify-center">
+                    <img
+                      src={sleepImg}
+                      alt="Sleep stages"
+                      className="h-full w-full object-contain"
+                    />
                   </div>
                 </motion.div>
                 {/* Other 3 cards in a row - same layout as IPhone1653 Frame27 */}
