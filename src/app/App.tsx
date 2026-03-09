@@ -113,7 +113,7 @@ export default function App() {
           style={{
             position: "absolute",
             top: 12,
-            left: "50%",
+            left: "52%",
             transform: "translateX(-50%)",
             width: "70%",
             height: "auto",
