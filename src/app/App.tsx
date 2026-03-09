@@ -92,7 +92,35 @@ export default function App() {
 
   return (
     <div className="size-full flex items-center justify-center bg-zinc-900 overflow-hidden font-['Instrument_Sans',sans-serif]">
-      <div className="relative w-[393px] h-[852px] rounded-[40px] shadow-2xl overflow-hidden ring-8 ring-black app-bg">
+      <div className="relative" style={{ width: 430, height: 882 }}>
+        <img
+          src="/iphone-frame.png"
+          alt=""
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        />
+      <div className="absolute rounded-[56px] overflow-hidden app-bg" style={{ top: 12, left: 15, right: 15, bottom: 14 }}>
+        <img
+          src="/status-bar.png"
+          alt=""
+          style={{
+            position: "absolute",
+            top: 12,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "70%",
+            height: "auto",
+            zIndex: 200,
+            pointerEvents: "none",
+          }}
+        />
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={screen}
@@ -185,6 +213,7 @@ export default function App() {
             })}
           </div>
         )}
+      </div>
       </div>
     </div>
   );
