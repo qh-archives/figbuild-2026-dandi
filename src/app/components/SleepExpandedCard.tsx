@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import imgImage41 from "@/assets/6d0f4a62e2c512d0485b9409fa0a263a6a69cf53.png"; // Sleep flower
 import sleepImg from "@/assets/sleep.png";
-import { ExpandedViewNavBar } from "../../imports/IPhone1653";
 import { FallingFlowersGeneric } from "./FallingFlowersGeneric";
 import { MedicationIntakeSection } from "./MedicationIntakeSection";
 import { CycleSection } from "./CycleSection";
@@ -19,14 +18,14 @@ export function SleepExpandedCard({
   return (
     <div className="app-bg relative size-full overflow-hidden">
       <div className="size-full overflow-y-auto scrollbar-hide relative">
-        <div className="pt-[55px] px-[20px] pb-[140px]">
+        <div className="pt-[75px] px-[20px] pb-[140px]">
           <div className="insight-title flex flex-col justify-center whitespace-nowrap">
             <p className="leading-[normal]">Insight</p>
           </div>
-          <div className="mt-[28px] flex flex-col gap-[32px] items-start w-[353px]">
+          <div className="mt-[30px] flex flex-col gap-[32px] items-start w-[353px]">
             <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
               <div
-                className="flex flex-col font-['Instrument_Sans',sans-serif] font-bold h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-[353px]"
+                className="flex flex-col font-['Instrument_Sans',sans-serif] font-medium h-[28px] justify-center leading-normal relative shrink-0 text-[16px] text-black w-[353px]"
                 style={{ fontVariationSettings: "'wdth' 100" }}
               >
                 <p className="leading-[normal]">Overview</p>
@@ -35,7 +34,7 @@ export function SleepExpandedCard({
                 <motion.div
                   layoutId="card-sleep"
                   onClick={onBack}
-                  className="bg-[#f1f6ea] h-[353px] relative rounded-[20px] shrink-0 w-full cursor-pointer overflow-hidden"
+                  className="bg-[#f1f6ea] h-[353px] relative rounded-[12px] shrink-0 w-full cursor-pointer overflow-hidden"
                 >
                   <FallingFlowersGeneric
                     isExpanding={isExpanding}
@@ -107,7 +106,6 @@ export function SleepExpandedCard({
           </div>
         </div>
       </div>
-      <ExpandedViewNavBar />
     </div>
   );
 }

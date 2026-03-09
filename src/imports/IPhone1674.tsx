@@ -5,7 +5,7 @@ import imgImage40 from "@/assets/4eef2f9b3dca3d6dc207561f3bb50531693179db.png";
 
 function Wrapper2({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[20px] shrink-0 w-full">
+    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[12px] shrink-0 w-full">
       <div className="content-stretch flex flex-col items-start px-[12px] py-[19px] relative size-full">
         {children}
       </div>
@@ -346,7 +346,7 @@ export default function IPhone() {
       <div className="absolute content-stretch flex flex-col gap-[32px] items-start left-[20px] top-[125px] w-[353px]">
         <div className="h-[348px] relative shrink-0 w-full">
           <div
-            className="absolute bg-[#f1f6ea] h-[348px] left-0 overflow-clip rounded-[20px] top-0 w-[353px]"
+            className="absolute bg-[#f1f6ea] h-[348px] left-0 overflow-clip rounded-[12px] top-0 w-[353px]"
             data-name="Heart Rate"
           >
             <div className="absolute h-[63px] left-[17px] top-[82px] w-[135px]">
@@ -584,7 +584,7 @@ export default function IPhone() {
         <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
           <Text text="Cycle" />
           <div className="h-[355px] relative shrink-0 w-[353px]">
-            <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[20px] top-0 w-[353px]">
+            <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[12px] top-0 w-[353px]">
               <div className="absolute content-stretch flex h-[20px] items-center justify-between left-0 px-[20px] top-[20px] w-[353px]">
                 <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
                   <div

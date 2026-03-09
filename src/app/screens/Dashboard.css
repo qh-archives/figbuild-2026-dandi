@@ -153,7 +153,7 @@
 
 .dash-card {
   background: #f1f6ea;
-  border-radius: 24px;
+  border-radius: 12px;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -208,7 +208,7 @@
   color: #345900;
   background: #f3e7d7;
   border: 1px solid #345900;
-  border-radius: 20px;
+  border-radius: 24px;
   padding: 3px 8px;
   white-space: nowrap;
 }
@@ -236,8 +236,15 @@
 .dash-nav-pill {
   width: 362px;
   height: 77px;
-  background: #f7b3cc;
-  backdrop-filter: blur(48px);
+  background: linear-gradient(
+    135deg,
+    rgba(247, 179, 204, 0.65) 0%,
+    rgba(243, 231, 215, 0.55) 40%,
+    rgba(247, 179, 204, 0.6) 70%,
+    rgba(241, 160, 139, 0.5) 100%
+  );
+  backdrop-filter: blur(28px) saturate(1.6);
+  -webkit-backdrop-filter: blur(28px) saturate(1.6);
   border-radius: 111px;
   display: flex;
   align-items: center;
@@ -245,6 +252,12 @@
   padding: 8px;
   box-sizing: border-box;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 8px 32px rgba(247, 179, 204, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 2px rgba(247, 179, 204, 0.2);
 }
 
 .dash-nav-btn {
@@ -258,6 +271,10 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.dash-nav-btn:active {
+  transform: scale(0.9);
   padding: 0;
 }
 
@@ -312,7 +329,7 @@
   align-items: center;
   gap: 10px;
   padding-top: 8px;
-  padding-bottom: 4px;
+  padding-bottom: 18px;
 }
 
 .ai-card-flower-lg {
@@ -324,11 +341,12 @@
 .ai-card-title-lg {
   font-family: "Instrument Sans", sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 12px;
   color: #1e1e1e;
   margin: 0;
   line-height: normal;
-  align-self: flex-start;
+  align-self: center;
+  text-align: center;
 }
 
 .ai-middle {
@@ -350,9 +368,9 @@
   color: #000;
   background: transparent;
   border: 1px solid #000;
-  border-radius: 20px;
-  padding: 0 14px;
-  height: 40px;
+  border-radius: 24px;
+  padding: 0 12px;
+  height: 36px;
   cursor: pointer;
   text-align: left;
   line-height: normal;
@@ -412,15 +430,15 @@
 
 .ai-response-text {
   font-family: "Instrument Sans", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   color: #1e1e1e;
   line-height: 1.55;
   margin: 0;
   background: rgba(255, 255, 255, 0.6);
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 10px 12px;
-  max-height: 100px;
+  max-height: 200px;
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -430,7 +448,7 @@
 
 .ai-back-btn {
   font-family: "Instrument Sans", sans-serif;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.45);
   background: none;
@@ -459,7 +477,7 @@
   outline: none;
   font-family: "Instrument Sans", sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 14px;
   color: #000;
   line-height: normal;
 }
@@ -478,4 +496,295 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+/* ── Tracker (Upload) Screen ─────────────────────────────────── */
+.tracker-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tracker-bg {
+  position: absolute;
+  inset: 0;
+  background: url("/bg.png") center center / cover no-repeat;
+  z-index: 0;
+}
+
+.tracker-scroll {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 110px;
+  scrollbar-width: none;
+}
+.tracker-scroll::-webkit-scrollbar { display: none; }
+
+.tracker-content {
+  padding: 75px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tracker-title {
+  font-family: 'Donegal One', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #000;
+  margin: 0;
+}
+
+.tracker-cal-wrap {
+  background: #f3e7d7;
+  border: 1px solid #494949;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tracker-cal-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid #494949;
+}
+
+.tracker-cal-hcell {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 12px;
+  color: rgba(0,0,0,0.73);
+  text-align: center;
+  padding: 4px 0;
+  border-right: 1px solid #494949;
+}
+.tracker-cal-hcell:last-child { border-right: none; }
+
+.tracker-cal-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid #494949;
+}
+.tracker-cal-row:last-child { border-bottom: none; }
+
+.tracker-cal-cell {
+  position: relative;
+  background: #f3e7d7;
+  border: none;
+  border-right: 1px solid #494949;
+  cursor: pointer;
+  padding: 6px 4px 6px;
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.tracker-cal-cell:last-child { border-right: none; }
+
+.tracker-cal-cell--today {
+  box-shadow: inset 0 0 0 2px #bd1150, 0 0 8px 1px rgba(189,17,80,0.25);
+}
+
+.tracker-cal-cell--selected {
+  background: rgba(189,17,80,0.08);
+}
+
+.tracker-cal-num {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.tracker-cal-bar {
+  width: 36px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.tracker-cal-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 0;
+}
+
+.tracker-cal-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.2);
+}
+
+.tracker-cal-dot--active {
+  background: #bd1150;
+}
+
+.tracker-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tracker-section {
+  background: #f1f6ea;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tracker-section--open {
+  padding-bottom: 12px;
+}
+
+.tracker-section-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.tracker-section-title {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000;
+}
+
+.tracker-section-body {
+  padding: 0 14px;
+}
+
+.tracker-feelings {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 8px 4px 4px;
+  gap: 4px;
+}
+
+.tracker-feeling-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 12px;
+  transition: background 0.15s;
+}
+
+.tracker-feeling-btn--active {
+  background: rgba(0,0,0,0.06);
+}
+
+.tracker-feeling-label {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  color: #1e1e1e;
+}
+
+/* ── Today's Schedule ─────────────────────────────────── */
+.schedule-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.schedule-subtitle {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #666;
+  margin: -10px 0 0;
+  line-height: normal;
+}
+
+.schedule-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.schedule-row {
+  background: #f1f6ea;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.schedule-row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.schedule-time {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #345900;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.schedule-name-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+}
+
+.schedule-name {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #345900;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.schedule-details {
+  padding: 0 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.schedule-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.schedule-detail-label {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #666;
+  line-height: 18px;
+}
+
+.schedule-detail-value {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #345900;
+  line-height: 19.5px;
 }

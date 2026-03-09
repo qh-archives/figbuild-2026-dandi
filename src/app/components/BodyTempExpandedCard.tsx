@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import imgImage44 from "@/assets/ab0f0306cf6f6c53e75e9e3017be976fab4648a1.png"; // Body Temp flower
 import imgEllipse from "@/assets/ellipse.png";
-import { ExpandedViewNavBar } from "../../imports/IPhone1653";
 import { FallingFlowersGeneric } from "./FallingFlowersGeneric";
 import { MedicationIntakeSection } from "./MedicationIntakeSection";
 import { CycleSection } from "./CycleSection";
@@ -19,14 +18,14 @@ export function BodyTempExpandedCard({
   return (
     <div className="app-bg relative size-full overflow-hidden">
       <div className="size-full overflow-y-auto scrollbar-hide relative">
-        <div className="pt-[55px] px-[20px] pb-[140px]">
+        <div className="pt-[75px] px-[20px] pb-[140px]">
           <div className="insight-title flex flex-col justify-center whitespace-nowrap">
             <p className="leading-[normal]">Insight</p>
           </div>
-          <div className="mt-[28px] flex flex-col gap-[32px] items-start w-[353px]">
+          <div className="mt-[30px] flex flex-col gap-[32px] items-start w-[353px]">
             <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
               <div
-                className="flex flex-col font-['Instrument_Sans',sans-serif] font-bold h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-[353px]"
+                className="flex flex-col font-['Instrument_Sans',sans-serif] font-medium h-[28px] justify-center leading-normal relative shrink-0 text-[16px] text-black w-[353px]"
                 style={{ fontVariationSettings: "'wdth' 100" }}
               >
                 <p className="leading-[normal]">Overview</p>
@@ -35,7 +34,7 @@ export function BodyTempExpandedCard({
                 <motion.div
                   layoutId="card-body-temp"
                   onClick={onBack}
-                  className="bg-[#f1f6ea] h-[353px] relative rounded-[20px] shrink-0 w-full cursor-pointer overflow-hidden flex flex-col py-[23px] px-[23px] gap-[20px]"
+                  className="bg-[#f1f6ea] h-[353px] relative rounded-[12px] shrink-0 w-full cursor-pointer overflow-hidden flex flex-col py-[23px] px-[23px] gap-[20px]"
                 >
                   <FallingFlowersGeneric
                     isExpanding={isExpanding}
@@ -68,7 +67,7 @@ export function BodyTempExpandedCard({
                         aria-hidden
                       />
                       <p
-                        className="absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2 text-center font-['Instrument_Sans',sans-serif] text-[#151515] text-[24px] font-normal leading-normal"
+                        className="absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2 text-center font-['Instrument_Sans',sans-serif] text-[#1e1e1e] text-[24px] font-normal leading-normal"
                         style={{ fontVariationSettings: "'wdth' 100" }}
                       >
                         NORMAL
@@ -114,7 +113,6 @@ export function BodyTempExpandedCard({
           </div>
         </div>
       </div>
-      <ExpandedViewNavBar />
     </div>
   );
 }

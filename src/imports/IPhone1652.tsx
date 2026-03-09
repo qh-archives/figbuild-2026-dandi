@@ -45,7 +45,7 @@ function HeartRate({ onHeartRateClick }: { onHeartRateClick?: () => void }) {
     <motion.div
       layoutId="heart-rate-card"
       onClick={onHeartRateClick}
-      className="bg-[#f1f6ea] col-1 h-[168px] justify-self-stretch overflow-clip relative row-1 shrink-0 cursor-pointer rounded-[24px]"
+      className="bg-[#f1f6ea] col-1 h-[168px] justify-self-stretch overflow-clip relative row-1 shrink-0 cursor-pointer rounded-[12px]"
       data-name="Heart Rate"
     >
       <div className="absolute h-[63px] left-[17px] top-[82px] w-[131px]">
@@ -145,7 +145,7 @@ function Hrv({ onGlucoseClick }: { onGlucoseClick?: () => void }) {
     <motion.div
       layoutId="card-glucose"
       onClick={onGlucoseClick}
-      className="bg-[#f1f6ea] col-2 h-[168px] justify-self-stretch overflow-clip relative row-2 shrink-0 cursor-pointer rounded-[24px]"
+      className="bg-[#f1f6ea] col-2 h-[168px] justify-self-stretch overflow-clip relative row-2 shrink-0 cursor-pointer rounded-[12px]"
       data-name="HRV"
     >
       <div
@@ -252,7 +252,7 @@ function Hrv1({ onBodyTempClick }: { onBodyTempClick?: () => void }) {
     <motion.div
       layoutId="card-body-temp"
       onClick={onBodyTempClick}
-      className="bg-[#f1f6ea] col-1 h-[168px] justify-self-stretch overflow-clip relative row-2 shrink-0 cursor-pointer rounded-[24px]"
+      className="bg-[#f1f6ea] col-1 h-[168px] justify-self-stretch overflow-clip relative row-2 shrink-0 cursor-pointer rounded-[12px]"
       data-name="HRV"
     >
       <div
@@ -413,7 +413,7 @@ function Hrv2({ onSleepClick }: { onSleepClick?: () => void }) {
     <motion.div
       layoutId="card-sleep"
       onClick={onSleepClick}
-      className="bg-[#f1f6ea] col-2 h-[168px] justify-self-stretch overflow-clip relative row-1 shrink-0 cursor-pointer rounded-[24px]"
+      className="bg-[#f1f6ea] col-2 h-[168px] justify-self-stretch overflow-clip relative row-1 shrink-0 cursor-pointer rounded-[12px]"
       data-name="HRV"
     >
       <div
@@ -483,7 +483,7 @@ function Frame29({
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
       <div
-        className="flex flex-col font-['Instrument_Sans',sans-serif] font-bold h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-full"
+        className="flex flex-col font-['Instrument_Sans',sans-serif] font-medium h-[28px] justify-center leading-normal relative shrink-0 text-[16px] text-black w-full"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         <p className="leading-[normal]">Overview</p>
@@ -630,7 +630,7 @@ function Frame4({
   onMagnesiumChange: (v: boolean) => void;
 }) {
   return (
-    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[24px] shrink-0 w-full">
+    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[12px] shrink-0 w-full">
       <div className="content-stretch flex flex-col items-start px-[12px] py-[19px] relative size-full">
         <Frame3 checked={magnesiumChecked} onChange={onMagnesiumChange} />
       </div>
@@ -700,7 +700,7 @@ function Frame5({
   onInositolChange: (v: boolean) => void;
 }) {
   return (
-    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[24px] shrink-0 w-full">
+    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[12px] shrink-0 w-full">
       <div className="content-stretch flex flex-col items-start px-[12px] py-[19px] relative size-full">
         <Frame6WithToggle checked={inositolChecked} onChange={onInositolChange} />
       </div>
@@ -723,7 +723,7 @@ function Frame28() {
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
       <div
-        className="flex flex-col font-['Instrument_Sans',sans-serif] font-bold h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-full"
+        className="flex flex-col font-['Instrument_Sans',sans-serif] font-medium h-[28px] justify-center leading-normal relative shrink-0 text-[16px] text-black w-full"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         <p className="leading-[normal] font-[Instrument_Sans]">
@@ -1308,7 +1308,7 @@ function Group3() {
 
 function Frame13() {
   return (
-    <div className="absolute bg-[#f1f6ea] h-[355px] left-0 top-0 w-[353px] rounded-[24px]">
+    <div className="absolute bg-[#f1f6ea] h-[355px] left-0 top-0 w-[353px] rounded-[12px]">
       <Frame14 />
       <FontistoBloodDrop />
       <Group3 />
@@ -1328,7 +1328,7 @@ function Frame38() {
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
       <div
-        className="flex flex-col font-['Instrument_Sans',sans-serif] font-bold h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-full"
+        className="flex flex-col font-['Instrument_Sans',sans-serif] font-medium h-[28px] justify-center leading-normal relative shrink-0 text-[16px] text-black w-full"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         <p className="leading-[normal]">Cycle</p>
@@ -1631,6 +1631,35 @@ type IPhoneProps = {
   onGlucoseClick?: () => void;
 };
 
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+
+const fadeSlideUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+const cardStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+};
+
+const cardFade = {
+  hidden: { opacity: 0, y: 30, scale: 0.92 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
 export default function IPhone({
   onHeartRateClick,
   onSleepClick,
@@ -1639,33 +1668,61 @@ export default function IPhone({
 }: IPhoneProps) {
   return (
     <div
-      className="app-bg relative size-full overflow-hidden"
+      className="relative size-full overflow-hidden"
       data-name="iPhone 16 - 52"
     >
       <div className="size-full overflow-y-auto scrollbar-hide relative">
-        <div className="pt-[55px] px-[20px] pb-[140px]">
-          <div className="insight-title flex flex-col justify-center whitespace-nowrap">
+        <motion.div
+          className="pt-[75px] px-[20px] pb-[140px]"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div
+            variants={fadeSlideUp}
+            className="insight-title flex flex-col justify-center whitespace-nowrap"
+          >
             <p className="leading-[normal]">Insight</p>
-          </div>
+          </motion.div>
           <div className="mt-[30px]">
-            <Frame30
-              onHeartRateClick={onHeartRateClick}
-              onSleepClick={onSleepClick}
-              onBodyTempClick={onBodyTempClick}
-              onGlucoseClick={onGlucoseClick}
-            />
+            <motion.div
+              className="content-stretch flex flex-col gap-[32px] items-start w-[353px]"
+              variants={staggerContainer}
+            >
+              <motion.div variants={fadeSlideUp} className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
+                <div
+                  className="flex flex-col font-['Instrument_Sans',sans-serif] font-medium h-[28px] justify-center leading-normal relative shrink-0 text-[16px] text-black w-full"
+                  style={{ fontVariationSettings: "'wdth' 100" }}
+                >
+                  <p className="leading-[normal]">Overview</p>
+                </div>
+                <motion.div
+                  className="gap-x-[12px] gap-y-[12px] grid grid-cols-[repeat(2,minmax(0,1fr))] grid-rows-[repeat(2,fit-content(100%))] relative shrink-0 w-full"
+                  variants={cardStagger}
+                >
+                  <motion.div variants={cardFade}>
+                    <HeartRate onHeartRateClick={onHeartRateClick} />
+                  </motion.div>
+                  <motion.div variants={cardFade}>
+                    <Hrv2 onSleepClick={onSleepClick} />
+                  </motion.div>
+                  <motion.div variants={cardFade}>
+                    <Hrv1 onBodyTempClick={onBodyTempClick} />
+                  </motion.div>
+                  <motion.div variants={cardFade}>
+                    <Hrv onGlucoseClick={onGlucoseClick} />
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+              <motion.div variants={fadeSlideUp} className="w-full">
+                <Frame8 />
+              </motion.div>
+              <motion.div variants={fadeSlideUp} className="w-full">
+                <Frame38 />
+              </motion.div>
+            </motion.div>
           </div>
-        </div>
-      </div>
-      <div
-        className="-translate-x-1/2 absolute backdrop-blur-[47.85px] bg-[#f7b3cc] bottom-[40px] content-stretch flex h-[77px] items-center justify-between left-1/2 overflow-clip p-[8px] rounded-[111px] w-[353px] z-10"
-        data-name="New Nav Bar"
-      >
-        <NavButton />
-        <Component1 />
-        <Component2 />
-        <Component />
-        <Component3 />
+        </motion.div>
       </div>
     </div>
   );

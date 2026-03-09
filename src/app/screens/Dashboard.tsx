@@ -8,6 +8,14 @@ import {
   animate,
 } from "motion/react";
 import "./Dashboard.css";
+import InsightPage from "../../imports/IPhone1652";
+import InsightExpanded from "../../imports/IPhone1653";
+import { SleepExpandedCard } from "../components/SleepExpandedCard";
+import { GlucoseExpandedCard } from "../components/GlucoseExpandedCard";
+import { BodyTempExpandedCard } from "../components/BodyTempExpandedCard";
+import CommunityScreen from "./CommunityScreen";
+import ProfileScreen from "./ProfileScreen";
+import UploadScreen from "./UploadScreen";
 
 const VITALS = [
   { label: "Heart Rate", value: "67", unit: "BPM", bg: "#f3a632" },
@@ -227,6 +235,77 @@ function InsightCard({
   );
 }
 
+const SCHEDULE = [
+  { time: "7:00AM", name: "Ovasitol", dose: "2,000mg / 50mg", remaining: "1 of 2", lastDose: "12h ago" },
+  { time: "12:00PM", name: "Metformin ER", dose: "500mg", remaining: "2 of 2", lastDose: "—" },
+  { time: "6:00PM", name: "Spironolactone", dose: "50mg", remaining: "1 of 1", lastDose: "24h ago" },
+];
+
+function ScheduleRow({ item }: { item: (typeof SCHEDULE)[0] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="schedule-row">
+      <button className="schedule-row-header" onClick={() => setOpen((o) => !o)}>
+        <span className="schedule-time">{item.time}</span>
+        <div className="schedule-name-wrap">
+          <span className="schedule-name">{item.name}</span>
+          <motion.svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            style={{ flexShrink: 0, marginLeft: 2 }}
+          >
+            <path d="M5 8l5 5 5-5" stroke="#345900" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </motion.svg>
+        </div>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            style={{ overflow: "hidden" }}
+          >
+            <div className="schedule-details">
+              <div className="schedule-detail-row">
+                <span className="schedule-detail-label">Dose</span>
+                <span className="schedule-detail-value">{item.dose}</span>
+              </div>
+              <div className="schedule-detail-row">
+                <span className="schedule-detail-label">Remaining today</span>
+                <span className="schedule-detail-value">{item.remaining}</span>
+              </div>
+              <div className="schedule-detail-row">
+                <span className="schedule-detail-label">Last dose</span>
+                <span className="schedule-detail-value">{item.lastDose}</span>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function TodaysSchedule() {
+  return (
+    <div className="schedule-section">
+      <p className="dash-section-title">Today&apos;s Schedule</p>
+      <p className="schedule-subtitle">Based on your real-time body readings</p>
+      <div className="schedule-rows">
+        {SCHEDULE.map((s, i) => (
+          <ScheduleRow key={i} item={s} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const NAV_ITEMS = [
   { id: "home", icon: "/nav-home.svg", iconSize: { w: 28, h: 28 } },
   { id: "insights", icon: "/nav-insights.svg", iconSize: { w: 21, h: 21 } },
@@ -307,10 +386,21 @@ function AiCardContent({ onClose }: { onClose: () => void }) {
         </svg>
       </button>
 
-      <div className="ai-top-section">
+      <motion.div
+        className="ai-top-section"
+        initial={false}
+        animate={{
+          y: typing || response ? -60 : 0,
+          opacity: typing || response ? 0 : 1,
+          height: typing || response ? 0 : "auto",
+          marginBottom: typing || response ? 0 : undefined,
+        }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        style={{ overflow: "hidden" }}
+      >
         <img src="/ai-flower.svg" alt="" className="ai-card-flower-lg" />
         <p className="ai-card-title-lg">Ask Dandi anything on your mind.</p>
-      </div>
+      </motion.div>
 
       <div className="ai-middle">
         <AnimatePresence mode="wait">
@@ -411,14 +501,37 @@ const fadeUp = {
   },
 };
 
+type InsightView = "grid" | "heart-rate" | "sleep" | "body-temp" | "glucose";
+
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("home");
   const [aiOpen, setAiOpen] = useState(false);
   const [spinning, setSpinning] = useState(false);
   const [vitalOrder, setVitalOrder] = useState([0, 1, 2, 3]);
   const [activeDrag, setActiveDrag] = useState<{ index: number; x: number } | null>(null);
+  const [insightView, setInsightView] = useState<InsightView>("grid");
+  const [isExpanding, setIsExpanding] = useState(false);
+  const [profileOverlay, setProfileOverlay] = useState(false);
   const spinControls = useAnimation();
   const rotRef = useRef(0);
+
+  function handleTabChange(id: string) {
+    setActiveTab(id);
+    if (id === "insights") {
+      setInsightView("grid");
+      setIsExpanding(false);
+    }
+  }
+
+  function handleInsightCardClick(view: InsightView) {
+    setIsExpanding(true);
+    setInsightView(view);
+  }
+
+  function handleInsightBack() {
+    setIsExpanding(false);
+    setInsightView("grid");
+  }
 
   const handleVitalDragStart = useCallback((index: number) => {
     setActiveDrag({ index, x: 0 });
@@ -477,6 +590,45 @@ export default function Dashboard() {
     setAiOpen(true);
   }
 
+  const renderExpandedView = () => {
+    switch (insightView) {
+      case "heart-rate":
+        return (
+          <InsightExpanded
+            key="expanded-hr"
+            onHeartRateClick={handleInsightBack}
+            isExpanding={isExpanding}
+          />
+        );
+      case "sleep":
+        return (
+          <SleepExpandedCard
+            key="expanded-sleep"
+            onBack={handleInsightBack}
+            isExpanding={isExpanding}
+          />
+        );
+      case "body-temp":
+        return (
+          <BodyTempExpandedCard
+            key="expanded-bt"
+            onBack={handleInsightBack}
+            isExpanding={isExpanding}
+          />
+        );
+      case "glucose":
+        return (
+          <GlucoseExpandedCard
+            key="expanded-gl"
+            onBack={handleInsightBack}
+            isExpanding={isExpanding}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <LayoutGroup>
       <div className="dash-screen">
@@ -496,113 +648,195 @@ export default function Dashboard() {
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         />
 
-        <div className="dash-scroll">
-          <motion.div
-            className="dash-content"
-            variants={stagger}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.div variants={fadeUp} className="dash-header">
-              <div className="dash-greeting-block">
-                <p className="dash-hi">Hi, Queenie!</p>
-                <p className="dash-headline">
-                  This is your current health status...
-                </p>
-              </div>
-
-              <div style={{ width: 70, height: 70, flexShrink: 0 }}>
-                <AnimatePresence>
-                  {!aiOpen && (
-                    <motion.button
-                      key="flower-btn"
-                      layoutId="ai-morph"
-                      type="button"
-                      onClick={handleFlowerClick}
-                      whileTap={{ scale: 0.9 }}
-                      style={{
-                        borderRadius: 999,
-                        width: 70,
-                        height: 70,
-                        overflow: "hidden",
-                        background: "transparent",
-                        border: "none",
-                        padding: 0,
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                      transition={{
-                        duration: 0.55,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                    >
-                      <motion.img
-                        src="/dash-flower.svg"
-                        alt="Ask Dandi"
-                        style={{ width: 70, height: 70 }}
-                        animate={spinControls}
-                      />
-                    </motion.button>
-                  )}
-                </AnimatePresence>
-              </div>
+        <AnimatePresence mode="wait">
+          {activeTab === "insights" ? (
+            <motion.div
+              key="insights-tab"
+              className="absolute inset-0 z-[1]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="dash-bg" />
+              <InsightPage
+                onHeartRateClick={() => handleInsightCardClick("heart-rate")}
+                onSleepClick={() => handleInsightCardClick("sleep")}
+                onBodyTempClick={() => handleInsightCardClick("body-temp")}
+                onGlucoseClick={() => handleInsightCardClick("glucose")}
+              />
+              <AnimatePresence>
+                {insightView !== "grid" && (
+                  <motion.div
+                    key={insightView}
+                    className="absolute inset-0 z-[2]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {renderExpandedView()}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
-
-            <AnimatePresence>
-              {aiOpen && (
+          ) : activeTab === "community" ? (
+            <motion.div
+              key="community-tab"
+              className="absolute inset-0 z-[1]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <CommunityScreen />
+            </motion.div>
+          ) : activeTab === "profile" ? (
+            <motion.div
+              key="profile-tab"
+              className="absolute inset-0"
+              style={{ zIndex: profileOverlay ? 20 : 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <ProfileScreen onOverlayChange={setProfileOverlay} />
+            </motion.div>
+          ) : activeTab === "upload" ? (
+            <motion.div
+              key="upload-tab"
+              className="absolute inset-0 z-[1]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <UploadScreen />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="home-tab"
+              className="absolute inset-0 z-[1] flex flex-col"
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="dash-scroll">
                 <motion.div
-                  key="ai-card"
-                  layoutId="ai-morph"
-                  className="ai-card"
-                  style={{ borderRadius: 24, overflow: "hidden" }}
-                  transition={{
-                    duration: 0.55,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+                  className="dash-content"
+                  variants={stagger}
+                  initial="hidden"
+                  animate="visible"
                 >
-                  <AiCardContent onClose={() => setAiOpen(false)} />
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <motion.div variants={fadeUp} className="dash-header">
+                    <div className="dash-greeting-block">
+                      <p className="dash-hi">Hi, Queenie!</p>
+                      <p className="dash-headline">
+                        This is your current health status...
+                      </p>
+                    </div>
 
-            <motion.div variants={fadeUp}>
-              <p className="dash-section-title">Health status</p>
-              <div className="dash-vitals">
-                {vitalOrder.map((vitalIndex, position) => (
-                  <VitalTile
-                    key={VITALS[vitalIndex].label}
-                    vital={VITALS[vitalIndex]}
-                    position={position}
-                    totalCount={vitalOrder.length}
-                    activeDrag={activeDrag}
-                    onSwipe={(dir) => handleVitalReorder(position, dir)}
-                    onDragStart={handleVitalDragStart}
-                    onDrag={handleVitalDrag}
-                    onDragEnd={handleVitalDragEnd}
-                  />
-                ))}
+                    <div style={{ width: 70, height: 70, flexShrink: 0 }}>
+                      <AnimatePresence>
+                        {!aiOpen && (
+                          <motion.button
+                            key="flower-btn"
+                            layoutId="ai-morph"
+                            type="button"
+                            onClick={handleFlowerClick}
+                            whileTap={{ scale: 0.9 }}
+                            style={{
+                              borderRadius: 999,
+                              width: 70,
+                              height: 70,
+                              overflow: "hidden",
+                              background: "transparent",
+                              border: "none",
+                              padding: 0,
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            transition={{
+                              duration: 0.55,
+                              ease: [0.22, 1, 0.36, 1],
+                            }}
+                          >
+                            <motion.img
+                              src="/dash-flower.svg"
+                              alt="Ask Dandi"
+                              style={{ width: 70, height: 70 }}
+                              animate={spinControls}
+                            />
+                          </motion.button>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </motion.div>
+
+                  <AnimatePresence>
+                    {aiOpen && (
+                      <motion.div
+                        key="ai-card"
+                        layoutId="ai-morph"
+                        className="ai-card"
+                        style={{ borderRadius: 24, overflow: "hidden" }}
+                        transition={{
+                          duration: 0.55,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                      >
+                        <AiCardContent onClose={() => setAiOpen(false)} />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <motion.div variants={fadeUp}>
+                    <p className="dash-section-title">Health status</p>
+                    <div className="dash-vitals">
+                      {vitalOrder.map((vitalIndex, position) => (
+                        <VitalTile
+                          key={VITALS[vitalIndex].label}
+                          vital={VITALS[vitalIndex]}
+                          position={position}
+                          totalCount={vitalOrder.length}
+                          activeDrag={activeDrag}
+                          onSwipe={(dir) => handleVitalReorder(position, dir)}
+                          onDragStart={handleVitalDragStart}
+                          onDrag={handleVitalDrag}
+                          onDragEnd={handleVitalDragEnd}
+                        />
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  <motion.div variants={fadeUp}>
+                    <TodaysSchedule />
+                  </motion.div>
+
+                  <div>
+                    <motion.p
+                      variants={fadeUp}
+                      className="dash-section-title"
+                    >
+                      Body condition and mood
+                    </motion.p>
+                    <div className="dash-cards">
+                      {CARDS.map((card, i) => (
+                        <InsightCard key={card.id} card={card} index={i} />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
+          )}
+        </AnimatePresence>
 
-            <div>
-              <motion.p
-                variants={fadeUp}
-                className="dash-section-title"
-              >
-                Body condition and mood
-              </motion.p>
-              <div className="dash-cards">
-                {CARDS.map((card, i) => (
-                  <InsightCard key={card.id} card={card} index={i} />
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        <NavBar activeTab={activeTab} onTabChange={setActiveTab} />
+        <NavBar activeTab={activeTab} onTabChange={handleTabChange} />
       </div>
     </LayoutGroup>
   );

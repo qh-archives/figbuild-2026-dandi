@@ -1,5 +1,7 @@
 node_modules
 guidelines
+dist
+*.mov
 
 # macOS
 .DS_Store

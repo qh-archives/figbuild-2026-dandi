@@ -4,7 +4,7 @@ import imgImage40 from "@/assets/4eef2f9b3dca3d6dc207561f3bb50531693179db.png";
 
 function Wrapper2({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[20px] shrink-0 w-full">
+    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[12px] shrink-0 w-full">
       <div className="content-stretch flex flex-col items-start px-[12px] py-[19px] relative size-full">
         {children}
       </div>
@@ -73,7 +73,7 @@ function NavIcon({
 
 function Hrv({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[20px]">
+    <div className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[12px]">
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-center justify-between p-[16px] relative size-full">
           {children}
@@ -418,7 +418,7 @@ export default function IPhone16Sleep() {
           </div>
           <div className="content-stretch flex flex-col gap-[17px] items-start relative shrink-0 w-full">
             <div
-              className="bg-[#f1f6ea] h-[353px] relative rounded-[20px] shrink-0 w-full"
+              className="bg-[#f1f6ea] h-[353px] relative rounded-[12px] shrink-0 w-full"
               data-name="Heart Rate"
             >
               <div className="absolute font-['Instrument_Sans',sans-serif] font-normal h-[49px] leading-[0] left-[15px] top-[39px] w-[73px] whitespace-nowrap">
@@ -468,7 +468,7 @@ export default function IPhone16Sleep() {
                     <p className="leading-[normal]">Awake</p>
                   </div>
                 </div>
-                <div className="absolute bg-[#9cf7ab] left-[42px] rounded-[77px] size-[6px] top-[6px]" />
+                <div className="absolute bg-[#9cf7ab] left-[42px] rounded-full size-[6px] top-[6px]" />
               </div>
               <Text1 text="39m" additionalClassNames="left-[57px] w-[26px]" />
               <Text1 text="1h" additionalClassNames="left-[149px] w-[12px]" />
@@ -484,7 +484,7 @@ export default function IPhone16Sleep() {
                     additionalClassNames="font-['Instrument_Sans',sans-serif] font-medium text-[#5e5e5e]"
                   />
                 </div>
-                <div className="absolute bg-[#74e886] left-[32px] rounded-[77px] size-[6px] top-[5px]" />
+                <div className="absolute bg-[#74e886] left-[32px] rounded-full size-[6px] top-[5px]" />
               </div>
               <div className="absolute h-[15px] left-[224px] top-[199px] w-[38px]">
                 <div className="absolute content-stretch flex items-center justify-center left-0 top-0">
@@ -493,7 +493,7 @@ export default function IPhone16Sleep() {
                     additionalClassNames="font-['Instrument_Sans',sans-serif] font-medium text-[#5e5e5e]"
                   />
                 </div>
-                <div className="absolute bg-[#0ec92c] left-[33px] rounded-[77px] size-[6px] top-[5px]" />
+                <div className="absolute bg-[#0ec92c] left-[33px] rounded-full size-[6px] top-[5px]" />
               </div>
               <div className="absolute h-[15px] left-[296px] top-[199px] w-[39px]">
                 <div className="absolute content-stretch flex items-center justify-center left-0 top-0">
@@ -502,7 +502,7 @@ export default function IPhone16Sleep() {
                     additionalClassNames="font-['Instrument_Sans',sans-serif] font-medium text-[#5e5e5e]"
                   />
                 </div>
-                <div className="absolute bg-[#09861d] left-[33px] rounded-[77px] size-[6px] top-[5px]" />
+                <div className="absolute bg-[#09861d] left-[33px] rounded-full size-[6px] top-[5px]" />
               </div>
             </div>
             <div className="content-start flex flex-wrap gap-[12px] items-start relative shrink-0 w-[353px]">
@@ -647,7 +647,7 @@ export default function IPhone16Sleep() {
             <p className="leading-[normal]">Cycle</p>
           </div>
           <div className="h-[355px] relative shrink-0 w-[353px]">
-            <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[20px] top-0 w-[353px]">
+            <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[12px] top-0 w-[353px]">
               <div className="absolute content-stretch flex h-[20px] items-center justify-between left-0 px-[20px] top-[20px] w-[353px]">
                 <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
                   <div

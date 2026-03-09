@@ -15,7 +15,7 @@ export function OverviewSmallCard({
   return (
     <motion.div
       layoutId={layoutId}
-      className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[20px]"
+      className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[12px]"
     >
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-center justify-between p-[16px] relative size-full">

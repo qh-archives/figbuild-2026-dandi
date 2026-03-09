@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Home from "./screens/Home";
 import Onboard1 from "./screens/Onboard1";
@@ -6,9 +6,13 @@ import Onboard2 from "./screens/Onboard2";
 import Onboard3 from "./screens/Onboard3";
 import Onboard4 from "./screens/Onboard4";
 import Connect from "./screens/Connect";
+import SupplementScreen, { generateCoverPetals } from "./screens/SupplementScreen";
 import Dashboard from "./screens/Dashboard";
 
-const SCREENS = ["home", "onboard1", "onboard2", "onboard3", "onboard4", "connect", "dashboard"] as const;
+const PETAL_HOLD_DURATION = 800;
+const PETAL_CLEAR_DURATION = 2.5;
+
+const SCREENS = ["home", "onboard1", "onboard2", "onboard3", "onboard4", "connect", "supplement", "dashboard"] as const;
 type ScreenName = (typeof SCREENS)[number];
 
 const slideVariants = {
@@ -37,9 +41,15 @@ const dashVariants = {
 const screenLayerClass = "absolute inset-0 flex items-center justify-center z-[1]";
 const screenBgStyle = { background: "url(/bg.png) center center / cover no-repeat" };
 
+type PetalPhase = "idle" | "entering" | "holding" | "clearing";
+
 export default function App() {
   const [screenIndex, setScreenIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [petalPhase, setPetalPhase] = useState<PetalPhase>("idle");
+  const [showDashBehind, setShowDashBehind] = useState(false);
+  const petals = useMemo(() => generateCoverPetals(PETAL_CLEAR_DURATION), []);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   function navigate(to: ScreenName) {
     const nextIndex = SCREENS.indexOf(to);
@@ -47,7 +57,38 @@ export default function App() {
     setScreenIndex(nextIndex);
   }
 
+  const handlePetalsCovered = useCallback(() => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+
+    setPetalPhase("entering");
+    setShowDashBehind(false);
+
+    const maxEnterDelay = Math.max(...petals.map(p => p.enterDelay));
+    const enterDone = (maxEnterDelay + 0.2) * 1000;
+
+    timers.current.push(setTimeout(() => {
+      setPetalPhase("holding");
+      setShowDashBehind(true);
+
+      timers.current.push(setTimeout(() => {
+        setDirection(1);
+        setScreenIndex(SCREENS.indexOf("dashboard"));
+
+        requestAnimationFrame(() => {
+          setPetalPhase("clearing");
+
+          timers.current.push(setTimeout(() => {
+            setPetalPhase("idle");
+            setShowDashBehind(false);
+          }, (PETAL_CLEAR_DURATION + 0.5) * 1000));
+        });
+      }, PETAL_HOLD_DURATION));
+    }, enterDone));
+  }, [petals]);
+
   const screen = SCREENS[screenIndex];
+  const showPetals = petalPhase !== "idle";
 
   return (
     <div className="size-full flex items-center justify-center bg-zinc-900 overflow-hidden font-['Instrument_Sans',sans-serif]">
@@ -55,8 +96,8 @@ export default function App() {
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={screen}
-            className={screen === "dashboard" ? "absolute inset-0" : screenLayerClass}
-            style={screen !== "dashboard" ? screenBgStyle : undefined}
+            className={screen === "dashboard" || screen === "supplement" ? "absolute inset-0" : screenLayerClass}
+            style={screen !== "dashboard" && screen !== "supplement" ? screenBgStyle : undefined}
             custom={direction}
             variants={screen === "dashboard" ? dashVariants : slideVariants}
             initial="enter"
@@ -93,12 +134,57 @@ export default function App() {
             {screen === "connect" && (
               <Connect
                 onBack={() => navigate("onboard4")}
-                onFinished={() => navigate("dashboard")}
+                onFinished={() => navigate("supplement")}
+              />
+            )}
+            {screen === "supplement" && (
+              <SupplementScreen
+                onPetalsCovered={handlePetalsCovered}
               />
             )}
             {screen === "dashboard" && <Dashboard />}
           </motion.div>
         </AnimatePresence>
+
+        {showDashBehind && (
+          <div style={{ position: "absolute", inset: 0, zIndex: 50 }}>
+            <Dashboard />
+          </div>
+        )}
+
+        {showPetals && (
+          <div style={{ position: "absolute", inset: 0, zIndex: 100, pointerEvents: "none", overflow: "hidden" }}>
+            {petals.map((p) => {
+              const isClearing = petalPhase === "clearing";
+              return (
+                <motion.img
+                  key={p.id}
+                  src={p.src}
+                  alt=""
+                  initial={{ opacity: 0, scale: 0, rotate: p.rotate - 90 }}
+                  animate={
+                    isClearing
+                      ? { opacity: 0, scale: 0, rotate: p.rotate - 90 }
+                      : { opacity: 1, scale: 1, rotate: p.rotate }
+                  }
+                  transition={
+                    isClearing
+                      ? { duration: 0.25, delay: p.exitDelay, ease: [0.22, 1, 0.36, 1] }
+                      : { duration: 0.2, delay: p.enterDelay, ease: [0.22, 1, 0.36, 1] }
+                  }
+                  style={{
+                    position: "absolute",
+                    left: `${p.x}%`,
+                    top: `${p.y}%`,
+                    width: p.size,
+                    height: p.size,
+                    objectFit: "contain",
+                  }}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

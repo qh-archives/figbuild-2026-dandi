@@ -55,7 +55,7 @@ function AnimatedMedicationToggle(props: { checked: boolean; onChange: (v: boole
 function MedicationRow(props: { name: string; dose: string; checked: boolean; onChange: (v: boolean) => void }) {
   const { name, dose, checked, onChange } = props;
   return (
-    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[24px] shrink-0 w-full">
+    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[12px] shrink-0 w-full">
       <div className="content-stretch flex flex-col items-start px-[12px] py-[19px] relative size-full">
         <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
           <div className="content-stretch flex gap-[12px] items-center relative shrink-0">
@@ -81,7 +81,7 @@ export function MedicationIntakeSection() {
   const [inositolChecked, setInositolChecked] = useState(true);
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
-      <div className="flex flex-col font-['Instrument_Sans',sans-serif] font-bold h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <div className="flex flex-col font-['Instrument_Sans',sans-serif] font-medium h-[28px] justify-center leading-normal relative shrink-0 text-[16px] text-black w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Medication Intake</p>
       </div>
       <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">

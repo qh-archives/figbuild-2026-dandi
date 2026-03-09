@@ -15,7 +15,7 @@ function Frame() {
 
 export default function HeartRate() {
   return (
-    <div className="bg-[#f1f6ea] relative rounded-[20px] size-full" data-name="Heart Rate">
+    <div className="bg-[#f1f6ea] relative rounded-[12px] size-full" data-name="Heart Rate">
       <Frame />
       <div className="-translate-x-1/2 absolute h-[123.131px] left-[calc(50%+0.5px)] top-[114px] w-[312px]">
         <div className="absolute inset-[5.51%_-0.22%_3.11%_-0.29%]">

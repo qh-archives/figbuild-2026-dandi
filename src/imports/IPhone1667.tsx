@@ -8,7 +8,7 @@ import imgImage40 from "@/assets/4eef2f9b3dca3d6dc207561f3bb50531693179db.png";
 
 function Wrapper2({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[20px] shrink-0 w-full">
+    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[12px] shrink-0 w-full">
       <div className="content-stretch flex flex-col items-start px-[12px] py-[19px] relative size-full">
         {children}
       </div>
@@ -346,7 +346,7 @@ export default function IPhone() {
       <div className="absolute content-stretch flex flex-col gap-[32px] items-start left-[20px] top-[125px] w-[353px]">
         <div className="gap-x-[12px] gap-y-[12px] grid grid-cols-[repeat(2,minmax(0,1fr))] grid-rows-[repeat(2,fit-content(100%))] relative shrink-0 w-full">
           <div
-            className="bg-[#f1f6ea] col-1 h-[168px] justify-self-stretch overflow-clip relative rounded-[20px] row-1 shrink-0"
+            className="bg-[#f1f6ea] col-1 h-[168px] justify-self-stretch overflow-clip relative rounded-[12px] row-1 shrink-0"
             data-name="Heart Rate"
           >
             <div className="absolute h-[63px] left-[17px] top-[82px] w-[135px]">
@@ -423,7 +423,7 @@ export default function IPhone() {
             </div>
           </div>
           <div
-            className="bg-[#f1f6ea] col-2 h-[168px] justify-self-stretch overflow-clip relative rounded-[20px] row-2 shrink-0"
+            className="bg-[#f1f6ea] col-2 h-[168px] justify-self-stretch overflow-clip relative rounded-[12px] row-2 shrink-0"
             data-name="Glucose"
           >
             <div
@@ -500,7 +500,7 @@ export default function IPhone() {
             </div>
           </div>
           <div
-            className="bg-[#f1f6ea] col-2 h-[168px] justify-self-stretch overflow-clip relative rounded-[20px] row-1 shrink-0"
+            className="bg-[#f1f6ea] col-2 h-[168px] justify-self-stretch overflow-clip relative rounded-[12px] row-1 shrink-0"
             data-name="Sleep"
           >
             <div className="absolute content-stretch flex flex-col font-['Instrument_Sans',sans-serif] font-normal gap-[4px] h-[75px] items-start leading-[0] left-0 pt-[20px] px-[12px] top-0 w-[171px]">
@@ -550,7 +550,7 @@ export default function IPhone() {
             </div>
           </div>
           <div
-            className="bg-[#f1f6ea] col-1 h-[168px] justify-self-stretch overflow-clip relative rounded-[20px] row-2 shrink-0"
+            className="bg-[#f1f6ea] col-1 h-[168px] justify-self-stretch overflow-clip relative rounded-[12px] row-2 shrink-0"
             data-name="Body Temp"
           >
             <div
@@ -729,7 +729,7 @@ export default function IPhone() {
         <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
           <Text1 text="Cycle" />
           <div className="h-[355px] relative shrink-0 w-[353px]">
-            <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[20px] top-0 w-[353px]">
+            <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[12px] top-0 w-[353px]">
               <div className="absolute content-stretch flex h-[20px] items-center justify-between left-0 px-[20px] top-[20px] w-[353px]">
                 <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
                   <div

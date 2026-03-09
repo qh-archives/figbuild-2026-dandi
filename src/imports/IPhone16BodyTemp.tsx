@@ -4,7 +4,7 @@ import imgImage40 from "@/assets/4eef2f9b3dca3d6dc207561f3bb50531693179db.png";
 
 function Wrapper2({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[20px] shrink-0 w-full">
+    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[12px] shrink-0 w-full">
       <div className="content-stretch flex flex-col items-start px-[12px] py-[19px] relative size-full">
         {children}
       </div>
@@ -73,7 +73,7 @@ function NavIcon({
 
 function Hrv({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[20px]">
+    <div className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[12px]">
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-center justify-between p-[16px] relative size-full">
           {children}
@@ -380,7 +380,7 @@ export default function IPhone16BodyTemp() {
           </div>
           <div className="content-stretch flex flex-col gap-[17px] items-start relative shrink-0 w-full">
             <div
-              className="bg-[#f1f6ea] h-[353px] overflow-clip relative rounded-[20px] shrink-0 w-full"
+              className="bg-[#f1f6ea] h-[353px] overflow-clip relative rounded-[12px] shrink-0 w-full"
               data-name="Heart Rate"
             >
               <div className="absolute h-[59px] left-[15px] top-[39px] w-[94px]">
@@ -611,7 +611,7 @@ export default function IPhone16BodyTemp() {
             <p className="leading-[normal]">Cycle</p>
           </div>
           <div className="h-[355px] relative shrink-0 w-[353px]">
-            <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[20px] top-0 w-[353px]">
+            <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[12px] top-0 w-[353px]">
               <div className="absolute content-stretch flex h-[20px] items-center justify-between left-0 px-[20px] top-[20px] w-[353px]">
                 <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
                   <div

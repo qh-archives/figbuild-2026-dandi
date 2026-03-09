@@ -33,7 +33,7 @@ function HeartRate({
     <motion.div
       layoutId="heart-rate-card"
       onClick={onHeartRateClick}
-      className="bg-[#f1f6ea] h-[353px] relative rounded-[20px] shrink-0 w-full cursor-pointer overflow-hidden"
+      className="bg-[#f1f6ea] h-[353px] relative rounded-[12px] shrink-0 w-full cursor-pointer overflow-hidden"
       data-name="Heart Rate"
     >
       <Frame17 />
@@ -148,7 +148,7 @@ function Hrv() {
   return (
     <motion.div
       layoutId="card-sleep"
-      className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[20px]"
+      className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[12px]"
       data-name="HRV"
     >
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
@@ -200,7 +200,7 @@ function Hrv1() {
   return (
     <motion.div
       layoutId="card-body-temp"
-      className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[20px]"
+      className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[12px]"
       data-name="HRV"
     >
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
@@ -249,7 +249,7 @@ function Hrv2() {
   return (
     <motion.div
       layoutId="card-glucose"
-      className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[20px]"
+      className="bg-[#f1f6ea] flex-[1_0_0] h-[110px] min-h-px min-w-px relative rounded-[12px]"
       data-name="HRV"
     >
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
@@ -300,7 +300,7 @@ function Frame29({
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
       <div
-        className="flex flex-col font-['Instrument_Sans',sans-serif] font-bold h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-[353px]"
+        className="flex flex-col font-['Instrument_Sans',sans-serif] font-normal h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-[353px]"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         <p className="leading-[normal]">Overview</p>
@@ -405,7 +405,7 @@ function Frame3() {
 
 function Frame4() {
   return (
-    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[20px] shrink-0 w-full">
+    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[12px] shrink-0 w-full">
       <div className="content-stretch flex flex-col items-start px-[12px] py-[19px] relative size-full">
         <Frame3 />
       </div>
@@ -502,7 +502,7 @@ function Frame6() {
 
 function Frame5() {
   return (
-    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[20px] shrink-0 w-full">
+    <div className="bg-[#f1f6ea] h-[75px] relative rounded-[12px] shrink-0 w-full">
       <div className="content-stretch flex flex-col items-start px-[12px] py-[19px] relative size-full">
         <Frame6 />
       </div>
@@ -523,7 +523,7 @@ function Frame26() {
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
       <div
-        className="flex flex-col font-['Instrument_Sans',sans-serif] font-bold h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-full"
+        className="flex flex-col font-['Instrument_Sans',sans-serif] font-normal h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-full"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         <p className="leading-[normal]">Medication Intake</p>
@@ -1106,7 +1106,7 @@ function Group3() {
 
 function Frame14() {
   return (
-    <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[20px] top-0 w-[353px]">
+    <div className="absolute bg-[#f1f6ea] h-[355px] left-0 rounded-[12px] top-0 w-[353px]">
       <Frame15 />
       <FontistoBloodDrop />
       <Group3 />
@@ -1126,7 +1126,7 @@ function Frame12() {
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full">
       <div
-        className="flex flex-col font-['Instrument_Sans',sans-serif] font-bold h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-full"
+        className="flex flex-col font-['Instrument_Sans',sans-serif] font-normal h-[28px] justify-center leading-normal relative shrink-0 text-[18px] text-black w-full"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         <p className="leading-[normal]">Cycle</p>
@@ -1442,11 +1442,11 @@ export default function IPhone({
       data-name="iPhone 16 - 53"
     >
       <div className="size-full overflow-y-auto scrollbar-hide relative">
-        <div className="pt-[55px] px-[20px] pb-[140px]">
+        <div className="pt-[75px] px-[20px] pb-[140px]">
           <div className="insight-title flex flex-col justify-center whitespace-nowrap">
             <p className="leading-[normal]">Insight</p>
           </div>
-          <div className="mt-[28px]">
+          <div className="mt-[30px]">
             <Frame28
               onHeartRateClick={onHeartRateClick}
               isExpanding={isExpanding}
@@ -1454,7 +1454,6 @@ export default function IPhone({
           </div>
         </div>
       </div>
-      <ExpandedViewNavBar />
     </div>
   );
 }
