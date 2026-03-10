@@ -85,6 +85,7 @@ export default function Connect({ onBack, onFinished }: ConnectProps) {
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         style={{ zIndex: 2 }}
       >
+        <source src="/ring.mp4" type='video/mp4; codecs="hvc1"' />
         <source src="/ring.webm" type="video/webm" />
       </motion.video>
 
