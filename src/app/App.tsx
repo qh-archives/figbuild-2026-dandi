@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Home from "./screens/Home";
 import Onboard1 from "./screens/Onboard1";
@@ -43,7 +43,28 @@ const screenBgStyle = { background: "url(/bg.png) center center / cover no-repea
 
 type PetalPhase = "idle" | "entering" | "holding" | "clearing";
 
+const FRAME_W = 430;
+const FRAME_H = 882;
+
+function useFrameScale() {
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    function update() {
+      const s = Math.min(
+        (window.innerWidth - 24) / FRAME_W,
+        (window.innerHeight - 24) / FRAME_H,
+      );
+      setScale(Math.min(1, s));
+    }
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  return scale;
+}
+
 export default function App() {
+  const scale = useFrameScale();
   const [screenIndex, setScreenIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [petalPhase, setPetalPhase] = useState<PetalPhase>("idle");
@@ -92,7 +113,7 @@ export default function App() {
 
   return (
     <div className="size-full flex items-center justify-center bg-zinc-900 overflow-hidden font-['Instrument_Sans',sans-serif]">
-      <div className="relative" style={{ width: 430, height: 882 }}>
+      <div className="relative" style={{ width: FRAME_W, height: FRAME_H, transform: `scale(${scale})`, transformOrigin: "center center" }}>
         <img
           src="/iphone-frame.png"
           alt=""
