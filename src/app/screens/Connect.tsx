@@ -1,6 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import "./Onboarding.css";
+
+// iOS/iPadOS Safari doesn't support WebM alpha transparency — falls back to static PNG
+function useSupportsWebMAlpha() {
+  const result = useRef<boolean | null>(null);
+  if (result.current === null) {
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    result.current = !isIOS;
+  }
+  return result.current;
+}
 
 const SEARCH_DURATION = 2000;
 const PAIRED_HOLD = 5000;
@@ -19,6 +31,7 @@ type ConnectProps = {
 };
 
 export default function Connect({ onBack, onFinished }: ConnectProps) {
+  const supportsWebMAlpha = useSupportsWebMAlpha();
   const [phase, setPhase] = useState<Phase>("idle");
 
   useEffect(() => {
@@ -74,20 +87,31 @@ export default function Connect({ onBack, onFinished }: ConnectProps) {
         </p>
       </motion.div>
 
-      <motion.video
-        className="connect-ring-video"
-        autoPlay
-        muted
-        loop
-        playsInline
-        initial={{ opacity: 0, scale: 0.88 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        style={{ zIndex: 2 }}
-      >
-        <source src="/ring.mp4" type='video/mp4; codecs="hvc1"' />
-        <source src="/ring.webm" type="video/webm" />
-      </motion.video>
+      {supportsWebMAlpha ? (
+        <motion.video
+          className="connect-ring-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          initial={{ opacity: 0, scale: 0.88 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          style={{ zIndex: 2 }}
+        >
+          <source src="/ring.webm" type="video/webm" />
+        </motion.video>
+      ) : (
+        <motion.img
+          src="/ring.png"
+          alt="Dandi earring"
+          className="connect-ring-video"
+          initial={{ opacity: 0, scale: 0.88 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          style={{ zIndex: 2 }}
+        />
+      )}
 
       {/* Steps / searching / paired status */}
       <AnimatePresence mode="wait">
