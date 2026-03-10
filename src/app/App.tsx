@@ -45,26 +45,37 @@ type PetalPhase = "idle" | "entering" | "holding" | "clearing";
 
 const FRAME_W = 430;
 const FRAME_H = 882;
+// Treat as mobile when the viewport is too narrow to comfortably show the phone mockup
+const MOBILE_BREAKPOINT = 500;
 
-function useFrameScale() {
-  const [scale, setScale] = useState(1);
+function useViewport() {
+  const [state, setState] = useState(() => {
+    const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+    const s = Math.min(
+      (window.innerWidth - 24) / FRAME_W,
+      (window.innerHeight - 24) / FRAME_H,
+    );
+    return { isMobile, scale: Math.min(1, s) };
+  });
+
   useEffect(() => {
     function update() {
+      const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
       const s = Math.min(
         (window.innerWidth - 24) / FRAME_W,
         (window.innerHeight - 24) / FRAME_H,
       );
-      setScale(Math.min(1, s));
+      setState({ isMobile, scale: Math.min(1, s) });
     }
-    update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
-  return scale;
+
+  return state;
 }
 
 export default function App() {
-  const scale = useFrameScale();
+  const { scale, isMobile } = useViewport();
   const [screenIndex, setScreenIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [petalPhase, setPetalPhase] = useState<PetalPhase>("idle");
@@ -111,37 +122,59 @@ export default function App() {
   const screen = SCREENS[screenIndex];
   const showPetals = petalPhase !== "idle";
 
+  // On mobile: fill the real screen natively — no phone frame image, no insets, no fake status bar
+  // On desktop: render the 430×882 phone mockup scaled to fit the viewport
+  const outerClass = isMobile
+    ? "size-full overflow-hidden font-['Instrument_Sans',sans-serif]"
+    : "size-full flex items-center justify-center bg-zinc-900 overflow-hidden font-['Instrument_Sans',sans-serif]";
+
+  const frameStyle = isMobile
+    ? { width: "100%", height: "100%" }
+    : { width: FRAME_W, height: FRAME_H, transform: `scale(${scale})`, transformOrigin: "center center" };
+
+  const innerStyle = isMobile
+    ? { top: 0, left: 0, right: 0, bottom: 0 }
+    : { top: 12, left: 15, right: 15, bottom: 14 };
+
+  const innerClass = isMobile
+    ? "absolute overflow-hidden app-bg"
+    : "absolute rounded-[56px] overflow-hidden app-bg";
+
   return (
-    <div className="size-full flex items-center justify-center bg-zinc-900 overflow-hidden font-['Instrument_Sans',sans-serif]">
-      <div className="relative" style={{ width: FRAME_W, height: FRAME_H, transform: `scale(${scale})`, transformOrigin: "center center" }}>
-        <img
-          src="/iphone-frame.png"
-          alt=""
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-            zIndex: 0,
-            pointerEvents: "none",
-          }}
-        />
-      <div className="absolute rounded-[56px] overflow-hidden app-bg" style={{ top: 12, left: 15, right: 15, bottom: 14 }}>
-        <img
-          src="/status-bar.png"
-          alt=""
-          style={{
-            position: "absolute",
-            top: 12,
-            left: "52%",
-            transform: "translateX(-50%)",
-            width: "70%",
-            height: "auto",
-            zIndex: 200,
-            pointerEvents: "none",
-          }}
-        />
+    <div className={outerClass}>
+      <div className="relative" style={frameStyle}>
+        {!isMobile && (
+          <img
+            src="/iphone-frame.png"
+            alt=""
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              zIndex: 0,
+              pointerEvents: "none",
+            }}
+          />
+        )}
+      <div className={innerClass} style={innerStyle}>
+        {!isMobile && (
+          <img
+            src="/status-bar.png"
+            alt=""
+            style={{
+              position: "absolute",
+              top: 12,
+              left: "52%",
+              transform: "translateX(-50%)",
+              width: "70%",
+              height: "auto",
+              zIndex: 200,
+              pointerEvents: "none",
+            }}
+          />
+        )}
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={screen}
