@@ -2,6 +2,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import "./Onboarding.css";
 
+// iOS/iPadOS Safari can't decode WebM or x265 alpha — MP4 plays but with black background.
+// mix-blend-mode: screen makes black pixels invisible, restoring the transparency effect.
+const isIOS =
+  typeof navigator !== "undefined" &&
+  (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
+
 const SEARCH_DURATION = 2000;
 const PAIRED_HOLD = 5000;
 
@@ -83,9 +90,9 @@ export default function Connect({ onBack, onFinished }: ConnectProps) {
         initial={{ opacity: 0, scale: 0.88 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        style={{ zIndex: 2 }}
+        style={{ zIndex: 2, mixBlendMode: isIOS ? "screen" : "normal" }}
       >
-        {/* HEVC alpha for Safari/iOS; WebM alpha for Chrome/Firefox */}
+        {/* HEVC for Safari/iOS (black bg → screen blend makes it transparent); WebM alpha for Chrome/Firefox */}
         <source src="/ring.mp4" type='video/mp4; codecs="hvc1"' />
         <source src="/ring.webm" type="video/webm" />
       </motion.video>
